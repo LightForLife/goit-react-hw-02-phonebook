@@ -4,25 +4,36 @@ import { nanoid } from 'nanoid';
 export class ContactForm extends Component {
   state = {
     name: '',
+    number: '',
   };
 
+  nameInputId = nanoid();
+  numberInputId = nanoid();
+
   handleChange = event => {
-    const { name, value } = event.currentTarget;
+    const { name, value, number } = event.currentTarget;
+    // const { number, value } = event.currentTarget;
     // console.log(event.currentTarget);
-    // console.log(event.currentTarget.name);
+    // console.log(event.currentTarget.value);
     this.setState({ [name]: value });
+    this.setState({ [number]: value });
   };
 
   handleSubmit = event => {
     event.preventDefault();
-    const contact = { id: nanoid(), name: this.state.name };
+    const contact = {
+      id: nanoid(),
+      name: this.state.name,
+      number: this.state.number,
+    };
     this.props.addItemContact(contact);
     this.resetInputs();
   };
 
   resetInputs = () => {
-    this.setState({ name: '' });
+    this.setState({ name: '', number: '' });
   };
+
   render() {
     return (
       <form onSubmit={this.handleSubmit}>
@@ -30,19 +41,39 @@ export class ContactForm extends Component {
           style={{
             display: 'block',
           }}
-          htmlFor=""
+          htmlFor={this.nameInputId}
         >
           Name
-          <input
-            type="text"
-            name="name"
-            value={this.state.name}
-            onChange={this.handleChange}
-            pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
-            title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
-            required
-          />
         </label>
+        <input
+          type="text"
+          name="name"
+          value={this.state.name}
+          onChange={this.handleChange}
+          pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
+          title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
+          required
+          id={this.nameInputId}
+        />
+
+        <label
+          style={{
+            display: 'block',
+          }}
+          htmlFor={this.numberInputId}
+        >
+          Number
+        </label>
+        <input
+          type="text"
+          name="number"
+          value={this.state.number}
+          onChange={this.handleChange}
+          // pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
+          title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
+          required
+          id={this.numberInputId}
+        />
         <button type="submit">Add contact</button>
       </form>
     );

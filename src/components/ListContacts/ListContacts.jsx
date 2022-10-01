@@ -5,7 +5,12 @@ export const ListContacts = ({ contacts }) => {
   return (
     <ul>
       {contacts.map(contact => (
-        <ItemContacts key={nanoid()} id={nanoid()} name={contact.name} />
+        <ItemContacts
+          key={nanoid()}
+          id={nanoid()}
+          name={contact.name}
+          number={contact.number}
+        />
       ))}
     </ul>
   );

@@ -1,7 +1,10 @@
-export const ItemContacts = ({ id, name }) => {
+export const ItemContacts = ({ id, name, number }) => {
   return (
     <li id={id}>
-      <span>{name}</span>
+      <span>
+        {name}: {number}
+      </span>
+      {/* <span>{number}</span> */}
     </li>
   );
 };

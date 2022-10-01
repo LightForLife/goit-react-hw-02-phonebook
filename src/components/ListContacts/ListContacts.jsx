@@ -1,15 +1,16 @@
 import { nanoid } from 'nanoid';
 import { ItemContacts } from 'components/ItemContacts/ItemContacts';
 
-export const ListContacts = ({ contacts }) => {
+export const ListContacts = ({ contacts, onDelete }) => {
   return (
     <ul>
-      {contacts.map(contact => (
+      {contacts.map(({ id, name, number }) => (
         <ItemContacts
           key={nanoid()}
-          id={nanoid()}
-          name={contact.name}
-          number={contact.number}
+          id={id}
+          name={name}
+          number={number}
+          onDelete={onDelete}
         />
       ))}
     </ul>

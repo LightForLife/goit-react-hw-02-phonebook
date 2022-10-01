@@ -21,12 +21,24 @@ export class ContactForm extends Component {
 
   handleSubmit = event => {
     event.preventDefault();
+
     const contact = {
       id: nanoid(),
       name: this.state.name,
       number: this.state.number,
     };
+
+    const findName = this.props.contacts.find(
+      contact => contact.name.toLowerCase() === this.state.name.toLowerCase()
+    );
+
+    if (findName) {
+      alert(`${contact.name} is already in contacts`);
+      return;
+    }
+
     this.props.addItemContact(contact);
+
     this.resetInputs();
   };
 

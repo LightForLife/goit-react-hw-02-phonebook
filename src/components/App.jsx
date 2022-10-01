@@ -15,21 +15,15 @@ export class App extends Component {
   };
 
   addItemContact = ({ id, name, number }) => {
-    // console.log(number);
-    // console.log(name);
     const itemContact = {
       id,
       name,
       number,
     };
 
-    this.setState(prevState => ({
-      contacts: [itemContact, ...prevState.contacts],
+    this.setState(({ contacts }) => ({
+      contacts: [itemContact, ...contacts],
     }));
-  };
-
-  formSubmitHandler = data => {
-    console.log(data);
   };
 
   changeFilter = event => {
@@ -48,6 +42,18 @@ export class App extends Component {
     return filterContacts;
   };
 
+  onDeleteContact = id => {
+    const { contacts } = this.state;
+
+    const filterContacts = contacts.filter(contact => contact.id !== id);
+    console.log(...filterContacts);
+
+    this.setState(() => ({
+      contacts: [...filterContacts],
+    }));
+    this.setState(prevState => console.log(prevState));
+  };
+
   render() {
     const { contacts, filter } = this.state;
     const visibleContacts = this.getVisibleContacts();
@@ -64,7 +70,10 @@ export class App extends Component {
       >
         <h2>Phonebook</h2>
         <ContactForm addItemContact={this.addItemContact} contacts={contacts} />
-        <ListContacts contacts={visibleContacts} />
+        <ListContacts
+          contacts={visibleContacts}
+          onDelete={this.onDeleteContact}
+        />
         <h3>Contacts</h3>
         <Filter value={filter} onChangeFilter={this.changeFilter} />
       </div>
